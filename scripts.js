@@ -23,11 +23,11 @@ const Modal = {
 
 const Storage = {
     get() {
-        return JSON.parse(localStorage.getItem("dev.finances:transactions")) || []
+        return JSON.parse(localStorage.getItem("dev.economies:transactions")) || []
     },
 
     set(transactions) {
-        localStorage.setItem("dev.finances:transactions", JSON.stringify(transactions))
+        localStorage.setItem("dev.economies:transactions", JSON.stringify(transactions))
     }
 }
 
@@ -123,12 +123,12 @@ const DOM = {
         DOM.transactionsContainer.innerHTML = ""
     }
 }
-
+//formatando entradas de valores de transações e data
 const Utils = {
-    formatAmount(value){
-        value = Number(value.replace(/\,\./g, "")) * 100
-        
-        return value
+    formatAmount(value) {
+        value = value * 100
+
+        return Math.round(value)
     },
 
     formatDate(date) {
@@ -138,7 +138,7 @@ const Utils = {
 
     formatCurrency(value) {
         const signal = Number(value) < 0 ? "-" : ""
-
+        
         value = String(value).replace(/\D/g, "")
 
         value = Number(value) / 100
@@ -146,11 +146,9 @@ const Utils = {
         value = value.toLocaleString("pt-BR", {
             style: "currency",
             currency: "BRL"
-        
-
         })
 
-       return signal + value
+        return signal + value
     }
 }
 
